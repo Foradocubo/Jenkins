@@ -2,10 +2,13 @@ version: '3'
 services:
   jenkins:
     image: jenkins/jenkins:lts-jdk17
+    user: root  # Necessário para o Jenkins ter permissões administrativas
     ports:
       - "6080:8080"
     volumes:
       - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock  # Permite acesso ao Docker
+      - /usr/bin/docker:/usr/bin/docker            # Monta o binário do Docker no container
     restart: unless-stopped
 
 volumes:
